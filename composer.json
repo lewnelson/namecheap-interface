@@ -1,0 +1,20 @@
+{
+    "name": "lewnelson/namecheap-interface",
+    "description": "Interface to namecheaps API",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "lewnelson",
+            "email": "lewis@lewnelson.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "php": ">=5.3.1"
+    },
+    "autoload": {
+        "psr-0": {
+            "Namecheap": "src/"
+        }
+    }
+}
