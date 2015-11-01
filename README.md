@@ -5,7 +5,7 @@ Install via composer.json
 
 ```
  "require": {
-   "lewnelson/namecheap-interface": "@dev"
+   "lewnelson/namecheap-interface": "dev-master"
  }
 ```
 
