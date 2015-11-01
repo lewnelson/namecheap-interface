@@ -1,6 +1,14 @@
 # namecheap-interface
 A PHP interface to Namecheap's API
 
+Install via composer.json
+
+```
+ "require": {
+   "lewnelson/namecheap-interface": "@dev-master"
+ }
+```
+
 This library is intended to allow easy interaction with Namecheaps API. For now you can only interact with your current domains, setting, deleting and getting host/MX records. Setup, configure and edit email forwarding. And configure nameservers either using custom nameservers or setting them to use Namecheaps default nameservers. The library covers the following commands from Namecheaps API and enhances them allowing more of an objective interaction allowing for manipulation of single objects.
 
 ## Current commands implemented in various methods
