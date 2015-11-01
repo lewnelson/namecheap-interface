@@ -21,6 +21,7 @@
  *  a namecheap sandbox account to try out the available
  *  functions.
  *
+ *
  */
 
 include_once(getcwd().'/../vendor/autoload.php');
