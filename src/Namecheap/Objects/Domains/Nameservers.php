@@ -30,11 +30,10 @@ class Nameservers extends BaseDomains
         $command = 'namecheap.domains.dns.setDefault';
         $response = $this->processDefaultRequest($command);
         $response_status = false;
-        if($this->getStatus() === 'ok') {
-            $attributes = $response['DomainDNSSetDefaultResult']->attributes();
-            $response = (string)$attributes['Updated'];
-            $response = filter_var($response, FILTER_VALIDATE_BOOLEAN);
-        }
+
+        $attributes = $response['DomainDNSSetDefaultResult']->attributes();
+        $response = (string)$attributes['Updated'];
+        $response = filter_var($response, FILTER_VALIDATE_BOOLEAN);
 
         return $this->createResponse($response);
     }
@@ -68,11 +67,10 @@ class Nameservers extends BaseDomains
         $response = $this->processDefaultRequest($command, $parameters);
 
         $response_status = false;
-        if($this->getStatus() === 'ok') {
-            $attributes = $response['DomainDNSSetCustomResult']->attributes();
-            $response_status = (string)$attributes['Updated'];
-            $response_status = filter_var($response_status, FILTER_VALIDATE_BOOLEAN);
-        }
+
+        $attributes = $response['DomainDNSSetCustomResult']->attributes();
+        $response_status = (string)$attributes['Updated'];
+        $response_status = filter_var($response_status, FILTER_VALIDATE_BOOLEAN);
 
         return $this->createResponse($response_status);
     }
@@ -114,16 +112,16 @@ class Nameservers extends BaseDomains
     {
         $command = 'namecheap.domains.dns.getList';
         $response = $this->processDefaultRequest($command);
-        if($this->getStatus() === 'ok') {
-            $attributes = $response['DomainDNSGetListResult']->attributes();
-            $using_namecheap = (string)$attributes['IsUsingOurDNS'];
-            $using_namecheap = filter_var($using_namecheap, FILTER_VALIDATE_BOOLEAN);
-            $nameservers = (array)$response['DomainDNSGetListResult']->Nameserver;
-            $response = array(
-                    'using_namecheap_dns' => $using_namecheap,
-                    'nameservers' => $nameservers
-                );
-        }
+
+        $attributes = $response['DomainDNSGetListResult']->attributes();
+        $using_namecheap = (string)$attributes['IsUsingOurDNS'];
+        $using_namecheap = filter_var($using_namecheap, FILTER_VALIDATE_BOOLEAN);
+        $nameservers = (array)$response['DomainDNSGetListResult']->Nameserver;
+        $response = array(
+                'using_namecheap_dns' => $using_namecheap,
+                'nameservers' => $nameservers
+            );
+
         return $this->createResponse($response);
     }
 }

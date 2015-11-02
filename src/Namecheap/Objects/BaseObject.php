@@ -12,13 +12,14 @@
 namespace Namecheap\Objects;
 
 use Namecheap\NamecheapMethodTypesBase;
+use Namecheap\NamecheapObjectInterface;
 
 /**
  * Common methods used by Object classes
  *
  * @author Lewis Nelson <lewis@lewnelson.com>
  */
-class BaseObject extends NamecheapMethodTypesBase
+class BaseObject extends NamecheapMethodTypesBase implements NamecheapObjectInterface
 {
     /**
      * key, value properties of object.
@@ -53,7 +54,7 @@ class BaseObject extends NamecheapMethodTypesBase
      * @param string $key
      * @param mixed $value
      */
-    public function setParameter($key, $value)
+    final public function setParameter($key, $value)
     {
         $this->parameters[$key] = $value;
     }
@@ -63,7 +64,7 @@ class BaseObject extends NamecheapMethodTypesBase
      *
      * @return array $parameters
      */
-    public function getParameters()
+    final public function getParameters()
     {
         return $this->parameters;
     }
@@ -75,7 +76,7 @@ class BaseObject extends NamecheapMethodTypesBase
      *
      * @return mixed value of $parameters[$key] or null if $key is not set
      */
-    public function getParameter($key)
+    final public function getParameter($key)
     {
         if(isset($this->parameters[$key])) {
             return $this->parameters[$key];

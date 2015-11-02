@@ -13,7 +13,6 @@ namespace Namecheap\MethodTypes;
 
 use Namecheap\NamecheapMethodTypesBase;
 use Namecheap\NamecheapMethodTypesInterface;
-use Namecheap\Objects\Container;
 
 /**
  * Interact with group domains methods
@@ -52,10 +51,6 @@ class ManageDomains extends NamecheapMethodTypesBase implements NamecheapMethodT
         $domains = array();
         $command = 'namecheap.domains.getList';
         $response = $this->processRequest($command, $new_request_parameters);
-        $status = $this->getStatus();
-        if($status !== 'ok') {
-            return $this->createResponse($response);
-        }
 
         foreach($response['DomainGetListResult']->Domain as $index => $domain) {
             $attributes = $domain->attributes();
@@ -92,10 +87,6 @@ class ManageDomains extends NamecheapMethodTypesBase implements NamecheapMethodT
         $domain_object = null;
         $command = 'namecheap.domains.getList';
         $response = $this->processRequest($command, $request_parameters);
-        $status = $this->getStatus();
-        if($status !== 'ok') {
-            return $this->createResponse($response);
-        }
 
         foreach($response['DomainGetListResult']->Domain as $index => $domain) {
             $attributes = $domain->attributes();
@@ -117,7 +108,6 @@ class ManageDomains extends NamecheapMethodTypesBase implements NamecheapMethodT
      */
     private function buildObject($domain)
     {
-        $connection = $this->getConnection();
         $domain_parameters = array(
                 'id' => (string)$domain['ID'],
                 'name' => (string)$domain['Name'],
@@ -141,8 +131,7 @@ class ManageDomains extends NamecheapMethodTypesBase implements NamecheapMethodT
             }
         }
 
-        $container = new Container('Domains', $domain_parameters);
-        $container->setConnections($connection);
+        $container = $this->getContainer('Domains', $domain_parameters);
         return $container;
     }
 }

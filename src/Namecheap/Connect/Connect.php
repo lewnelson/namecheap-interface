@@ -11,6 +11,9 @@
 
 namespace Namecheap\Connect;
 
+use Namecheap\NamecheapException;
+use Namecheap\Response;
+
 /**
  * Connects with Namecheaps API
  *
@@ -327,6 +330,7 @@ class Connect
      * @param string $url
      *
      * @throws \Exception on cURL errors
+     * @throws \Namecheap\NamecheapException Namecheap errors
      *
      * @return array $response
      */
@@ -357,6 +361,11 @@ class Connect
 
         $response = NamecheapResponse::create($response, $url, $exploded_parameters);
         $formatted_response = $response->format();
+
+        if($formatted_response['status'] !== 'ok') {
+            throw new NamecheapException(new Response($formatted_response['status'], $formatted_response['request_info'], $formatted_response['response']));
+        }
+
         return $formatted_response;
     }
 

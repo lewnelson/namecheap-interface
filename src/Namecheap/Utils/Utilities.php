@@ -18,6 +18,15 @@ namespace Namecheap\Utils;
  */
 class Utilities
 {
+    /**
+     * Converts a CamelCase string to underscores
+     * Used to convert pathnames
+     * e.g. CamelCase/Path -> camel_case_path
+     *
+     * @param string $string
+     *
+     * @return string $string
+     */
     public static function convertCamelCaseToUnderscore($string)
     {
         $new_parts = array();
@@ -31,9 +40,17 @@ class Utilities
         return $string;
     }
 
+    /**
+     * Converts a given path to PHP file (with or
+     * without .php extension) into the namespace
+     * e.g. Path/To/Class.php -> \Path\To\Class
+     *
+     * @param string $string
+     *
+     * @return string $string
+     */
     public static function getFullNamespace($string)
     {
-        // Remove .php extension if exists
         $string = preg_replace('/\.php$/', '', $string);
         $string = str_replace('/', '\\', $string);
         if(substr($string, 0, 1) !== '\\') {
@@ -43,6 +60,21 @@ class Utilities
         return $string;
     }
 
+    /**
+     * Gets all classes from a given directory.
+     * Recursive into all subdirectories, builds array
+     * of classes in format
+     *
+     * Class
+     * Directory/Class
+     * Directory/SubDirectory/Class
+     *
+     * @param string $directory
+     * @param string $base_directory (optional) will set prefix to classes
+     * @param array $classes (optional) begin with array of classes
+     *
+     * @return array $classes
+     */
     public static function getClasses($directory, $base_directory = '', $classes = null)
     {
         if($classes === null) {

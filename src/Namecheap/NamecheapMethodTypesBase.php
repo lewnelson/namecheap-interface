@@ -12,6 +12,7 @@
 namespace Namecheap;
 
 use Namecheap\Response;
+use Namecheap\Objects\Container;
 
 /**
  * Common methods used by classes implementing NamecheapMethodTypesInterface
@@ -53,7 +54,7 @@ class NamecheapMethodTypesBase
      *
      * @param \Namecheap\Connect\Connect $connection
      */
-    public function setConnection(\Namecheap\Connect\Connect $connection)
+    final public function setConnection(\Namecheap\Connect\Connect $connection)
     {
         $this->connection = $connection;
     }
@@ -63,7 +64,7 @@ class NamecheapMethodTypesBase
      *
      * @return \Namecheap\Connect\Connect $connection
      */
-    public function getConnection()
+    final public function getConnection()
     {
         return $this->connection;
     }
@@ -76,7 +77,7 @@ class NamecheapMethodTypesBase
      *
      * @return false on error or array response on success
      */
-    protected function processRequest($command, $parameters = array())
+    final protected function processRequest($command, $parameters = array())
     {
         $response = $this->connection->request($command, $parameters);
         $this->setRequestInfo($response);
@@ -84,7 +85,7 @@ class NamecheapMethodTypesBase
         return $response['response'];
     }
 
-    protected function createResponse($response)
+    final protected function createResponse($response)
     {
         $this->setResponse($response);
         $response = new Response($this->getStatus(), $this->getRequestInfo(), $this->getResponse());
@@ -96,7 +97,7 @@ class NamecheapMethodTypesBase
      *
      * @param array $response
      */
-    private function setRequestInfo($response)
+    final private function setRequestInfo($response)
     {
         $this->request_info = $response['request_info'];
     }
@@ -106,7 +107,7 @@ class NamecheapMethodTypesBase
      *
      * @param array $response
      */
-    private function setStatus($response)
+    final private function setStatus($response)
     {
         $this->status = $response['status'];
     }
@@ -116,7 +117,7 @@ class NamecheapMethodTypesBase
      *
      * @param mixed $response
      */
-    protected function setResponse($response)
+    final protected function setResponse($response)
     {
 
         $this->response = $response;
@@ -127,7 +128,7 @@ class NamecheapMethodTypesBase
      *
      * @return array $request_info or null if not set
      */
-    public function getRequestInfo()
+    final public function getRequestInfo()
     {
         if(isset($this->request_info)) {
             return $this->request_info;
@@ -141,7 +142,7 @@ class NamecheapMethodTypesBase
      *
      * @return string $status or null if not set
      */
-    public function getStatus()
+    final public function getStatus()
     {
         if(isset($this->status)) {
             return $this->status;
@@ -155,13 +156,28 @@ class NamecheapMethodTypesBase
      *
      * @return $response or null if not set
      */
-    public function getResponse()
+    final public function getResponse()
     {
         if(isset($this->response)) {
             return $this->response;
         } else {
             return null;
         }
+    }
+
+    /**
+     * Gets Container of objects by type
+     *
+     * @param string $type
+     * @param array $config
+     *
+     * @return \Namecheap\Objects\Container $container
+     */
+    final protected function getContainer($type, $config)
+    {
+        $connection = $this->getConnection();
+        $container = new Container('Domains', $connection, $config);
+        return $container;
     }
 }
 

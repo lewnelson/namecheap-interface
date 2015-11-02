@@ -18,8 +18,25 @@ namespace Namecheap\Connect;
  */
 class NamecheapResponse
 {
+    /**
+     * XML response from Namecheap API
+     *
+     * @param string
+     */
     private $response;
+
+    /**
+     * URL used in request
+     *
+     * @param string
+     */
     private $url;
+
+    /**
+     * Post data used in request
+     *
+     * @param array
+     */
     private $post_data;
 
     /**
@@ -113,12 +130,18 @@ class NamecheapResponse
      */
     private function parseErrors($response)
     {
-        $errors = (array)$response->Errors;
-        if(isset($errors['Error'])) {
+        if(isset($response->Errors->Error)) {
+            $error = $response->Errors->Error;
+            $attributes = $error->attributes();
+            $error_code = (string)$attributes['Number'];
+            $error_message = (string)$response->Errors->Error;
             $request_info = self::getRequestInfo($response);
             $formatted_response = array(
                     'status' => 'error',
-                    'response' => $errors['Error']
+                    'response' => array(
+                            'error_message' => $error_message,
+                            'error_code' => $error_code
+                        )
                 );
             return array_merge($formatted_response, $request_info);
         } else {
