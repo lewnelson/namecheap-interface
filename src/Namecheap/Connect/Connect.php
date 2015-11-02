@@ -355,8 +355,9 @@ class Connect
             throw new \Exception('cURL error - ('.$curl_errno.'): `'.$curl_error.'`');
         }
 
-        $response = NamecheapResponse::format($response, $url);
-        return $response;
+        $response = NamecheapResponse::create($response, $url, $exploded_parameters);
+        $formatted_response = $response->format();
+        return $formatted_response;
     }
 
     /**

@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Namecheap;
+namespace Namecheap\Objects;
 
 use Namecheap\NamecheapMethodTypesBase;
 

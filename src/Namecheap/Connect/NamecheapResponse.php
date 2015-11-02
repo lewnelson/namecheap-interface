@@ -18,28 +18,48 @@ namespace Namecheap\Connect;
  */
 class NamecheapResponse
 {
+    private $response;
+    private $url;
+    private $post_data;
+
+    /**
+     * Create a formatted Namecheap response
+     *
+     * @param string $response
+     * @param string $url
+     * @param array $post_data
+     *
+     * @return \Namecheap\Connect\NamecheapResponse
+     */
+    public static function create($response, $url, $post_data)
+    {
+        $instance = self::instantiateSelf($response, $url, $post_data);
+        return $instance;
+    }
+
     /**
      * Formats the XML response
      *
      * @param string $response
      * @param string $url
+     * @param array $post_data
      *
      * @throws \Exception if unable to parse response as a Namecheap response
      *
      * @return array $formatted_response
      */
-    public static function format($response, $url)
+    public function format()
     {
-        $xml = new \SimpleXMLElement($response);
+        $xml = new \SimpleXMLElement($this->response);
         $attributes = (array)$xml->attributes();
         $formatted_response = false;
 
         if(isset($attributes['@attributes']['Status'])) {
             $status = $attributes['@attributes']['Status'];
             if($status === 'ERROR') {
-                $formatted_response = self::parseErrors($xml, $url);
+                $formatted_response = self::parseErrors($xml);
             } else if($status === 'OK') {
-                $formatted_response = self::parseCommandResponse($xml, $url);
+                $formatted_response = self::parseCommandResponse($xml);
             }
         }
 
@@ -51,6 +71,39 @@ class NamecheapResponse
     }
 
     /**
+     * Create instance of self
+     *
+     * @param string $response
+     * @param string $url
+     * @param array $post_data
+     *
+     * @return \Namecheap\Connect\NamecheapResponse
+     */
+    private static function instantiateSelf($response, $url, $post_data)
+    {
+        $instance = new self();
+        $instance->setResponse($response);
+        $instance->setUrl($url);
+        $instance->setPostData($post_data);
+        return $instance;
+    }
+
+    private function setResponse($response)
+    {
+        $this->response = $response;
+    }
+
+    private function setUrl($url)
+    {
+        $this->url = $url;
+    }
+
+    private function setPostData($post_data)
+    {
+        $this->post_data = $post_data;
+    }
+
+    /**
      * Parses error from $response
      *
      * @param array $response
@@ -58,11 +111,11 @@ class NamecheapResponse
      *
      * @return false if unable to parse or array $response
      */
-    private static function parseErrors($response, $url)
+    private function parseErrors($response)
     {
         $errors = (array)$response->Errors;
         if(isset($errors['Error'])) {
-            $request_info = self::getRequestInfo($response, $url);
+            $request_info = self::getRequestInfo($response);
             $formatted_response = array(
                     'status' => 'error',
                     'response' => $errors['Error']
@@ -81,10 +134,10 @@ class NamecheapResponse
      *
      * @return false if unable to parse or array $response
      */
-    private static function parseCommandResponse($response, $url)
+    private function parseCommandResponse($response)
     {
         if(isset($response->CommandResponse)) {
-            $request_info = self::getRequestInfo($response, $url);
+            $request_info = self::getRequestInfo($response);
             $formatted_response = array(
                     'status' => 'ok',
                     'response' => (array)$response->CommandResponse
@@ -103,7 +156,7 @@ class NamecheapResponse
      *
      * @return array $request_info
      */
-    private static function getRequestInfo($response, $url)
+    private function getRequestInfo($response)
     {
         $info_keys = array(
                 'Server' => 'server',
@@ -125,7 +178,8 @@ class NamecheapResponse
         if(empty($request_info)) {
             return array('request_info' => null);
         } else {
-            $request_info['url'] = $url;
+            $request_info['url'] = $this->url;
+            $request_info['request_data'] = $this->post_data;
             return array('request_info' => $request_info);
         }
     }
