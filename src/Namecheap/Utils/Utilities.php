@@ -73,10 +73,16 @@ class Utilities
      * @param string $base_directory (optional) will set prefix to classes
      * @param array $classes (optional) begin with array of classes
      *
+     * @throws \Exception if $directory is not a directory
+     *
      * @return array $classes
      */
     public static function getClasses($directory, $base_directory = '', $classes = null)
     {
+        if(!is_dir($directory)) {
+            throw new \Exception('Invalid directory `'.$directory.'` provided for \Namecheap\Utilities::getClasses');
+        }
+
         if($classes === null) {
             $classes = array();
         }
