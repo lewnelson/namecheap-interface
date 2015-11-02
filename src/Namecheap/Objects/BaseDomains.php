@@ -36,14 +36,6 @@ class BaseDomains extends BaseObject
         if($domain === null) {
             throw new \Exception('Missing parameter `name` from `domain_parameters`');
         }
-
-        preg_match("/^(?'sld'[^\.]+)\.(?'tld'.*)$/", $domain, $levels);
-        if(isset($levels['sld']) && isset($levels['tld'])) {
-            $this->setParameter('sld', $levels['sld']);
-            $this->setParameter('tld', $levels['tld']);
-        } else {
-            throw new \Exception('Unable to retrieve TLD and SLD from domain name `'.$domain.'`');
-        }
     }
 
     /**

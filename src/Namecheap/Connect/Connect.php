@@ -103,9 +103,11 @@ class Connect
                 'client_ip'
             );
 
+        $escaped_directory_separator = DIRECTORY_SEPARATOR;
+
         $optional_parameters = array(
                 'username' => null,
-                'ssl_certificate_path' => preg_replace('/\/[^\/]+$/', '/Certificates', __DIR__).'/ca-bundle.crt'
+                'ssl_certificate_path' => preg_replace('/[^\\'.$escaped_directory_separator.']+$/', '/Certificates', __DIR__).'/ca-bundle.crt'
             );
 
         foreach($config as $option => $value) {

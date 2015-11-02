@@ -112,6 +112,7 @@ class ManageDomains extends NamecheapMethodTypesBase implements NamecheapMethodT
      * Parses the domain XML array to domain object used for getList
      *
      * @param string $domain
+     * @throws \Exception if cannot parse out tld and sld
      *
      * @return \Namecheap\Objects\Domains $domain_object
      */
@@ -139,6 +140,14 @@ class ManageDomains extends NamecheapMethodTypesBase implements NamecheapMethodT
             } else if((string)$domain[$key] === 'true') {
                 $domain_parameters[$new_key] = true;
             }
+        }
+
+        preg_match("/^(?'sld'[^\.]+)\.(?'tld'.*)$/", $domain_parameters['name'], $levels);
+        if(isset($levels['sld']) && isset($levels['tld'])) {
+            $domain_parameters['sld'] = $levels['sld'];
+            $domain_parameters['tld'] = $levels['tld'];
+        } else {
+            throw new \Exception('Unable to retrieve TLD and SLD from domain name `'.$domain_parameters['name'].'`');
         }
 
         $container = new Container('Domains', $domain_parameters);

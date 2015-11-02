@@ -53,7 +53,7 @@ class BaseObject extends NamecheapMethodTypesBase
      * @param string $key
      * @param mixed $value
      */
-    public function setParameter($key, $value)
+    protected function setParameter($key, $value)
     {
         $this->parameters[$key] = $value;
     }
