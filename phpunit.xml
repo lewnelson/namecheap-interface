@@ -1,2 +1,7 @@
 <phpunit bootstrap="phpunit_bootstrap.php">
+    <filter>
+        <whitelist>
+            <directory>src</directory>
+        </whitelist>
+    </filter>
 </phpunit>
