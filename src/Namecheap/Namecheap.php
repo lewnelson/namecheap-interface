@@ -26,9 +26,16 @@ class Namecheap
      * method_type objects
      *
      * @param array $config
+     * @throws \Exception if $config not array
      */
     public function __construct($config)
     {
+        if(!is_array($config)) {
+            throw new \Exception('Invalid config, expecting array');
+        } else if(empty($config)) {
+            throw new \Exception('Cannot pass empty configuration array');
+        }
+
         $method_types = Utilities::getClasses(__DIR__.'/MethodTypes');
         foreach($method_types as $method_type) {
             $object = $this->create($method_type, $config);

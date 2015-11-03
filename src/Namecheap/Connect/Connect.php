@@ -205,7 +205,7 @@ class Connect
         if(is_string($client_ip)) {
             // IPv6 not implemented yet
             $ipv4_pattern = '/^(?:(?:[1-9]{1,2}|1[0-9]{2}|(?:2[0-4]{1}[0-9]{1}|25[0-4]{1}))\.){3}(?:[0-9]{1,2}|1[0-9]{2}|(?:2[0-4]{1}[0-9]{1}|25[0-4]{1}))$/';
-            if(preg_match($ipv4_pattern, $client_ip) === -1) {
+            if(preg_match($ipv4_pattern, $client_ip) === 0) {
                 throw new \Exception('Invalid IPv4 value specified for `client_ip`');
             } else {
                 $this->client_ip = $client_ip;

@@ -1,2 +1,6 @@
 /public
 /public/*
+/*sublime*
+/vendor
+/vendor/*
+/composer.lock
