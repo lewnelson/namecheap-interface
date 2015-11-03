@@ -1,4 +1,9 @@
 <phpunit bootstrap="phpunit_bootstrap.php">
+    <testsuites>
+        <testsuite name="lewnelson/namecheap-interface testsuite">
+            <directory>tests/</directory>
+        </testsuite>
+    </testsuites>
     <filter>
         <whitelist>
             <directory>src</directory>

@@ -37,6 +37,15 @@ class NamecheapException extends \Exception
     {
         $this->namecheap_response = $response;
         $response = $response->getResponse();
+
+        if(!isset($response['error_message']) || !isset($response['error_code'])) {
+            throw new \Exception('Unable to create NamecheapException, missing Namecheap `error_message` and `error_code`', 7);
+        }
+
+        if(!is_int($response['error_code'])) {
+            throw new \Exception('Invalid value of Namecheap `error_code` expecting integer', 8);
+        }
+
         $error_message = $response['error_message'];
         $error_code = $response['error_code'];
         parent::__construct($error_message, $error_code);

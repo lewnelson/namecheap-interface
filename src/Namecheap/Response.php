@@ -11,8 +11,6 @@
 
 namespace Namecheap;
 
-use Namecheap\Connect\Connect;
-
 /**
  * Response object
  *
@@ -64,37 +62,54 @@ class Response
      */
     private function setStatus($status)
     {
+        $valid_statuses = array(
+                'error',
+                'ok'
+            );
+
         if(!is_string($status)) {
-            throw new \Exception('Invalid value provided for `status` expecting string');
+            throw new \Exception('Invalid value provided for `status` expecting string', 3);
         } else {
-            $this->status = $status;
+            if(!in_array($status, $valid_statuses)) {
+                throw new \Exception('Invalid value provided for `status`', 6);
+            } else {
+                $this->status = $status;
+            }
         }
     }
 
     /**
      * Sets request_information property
      *
-     * @param array or null $request_information
+     * @param array $request_information
      */
     private function setRequestInformation($request_information)
     {
-        $this->request_information = $request_information;
+        if(!is_array($request_information)) {
+            throw new \Exception('Invalid value provided for `request_information` expecting array', 4);
+        } else {
+            $this->request_information = $request_information;
+        }
     }
 
     /**
      * Sets response property
      *
-     * @param array, string or null $response
+     * @param array $response
      */
     private function setResponse($response)
     {
-        $this->response = $response;
+        if(!is_array($response)) {
+            throw new \Exception('Invalid value provided for `response` expecting array', 5);
+        } else {
+            $this->response = $response;
+        }
     }
 
     /**
      * Gets status property
      *
-     * @param string $status
+     * @return string $status
      */
     public function getStatus()
     {
@@ -104,7 +119,7 @@ class Response
     /**
      * Gets request_information property
      *
-     * @param mixed array, null $request_information
+     * @return array $request_information
      */
     public function getRequestInformation()
     {
@@ -114,7 +129,7 @@ class Response
     /**
      * Gets response property
      *
-     * @param mixed array, string, null $response
+     * @return array $response
      */
     public function getResponse()
     {

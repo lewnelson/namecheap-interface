@@ -31,9 +31,9 @@ class Namecheap
     public function __construct($config)
     {
         if(!is_array($config)) {
-            throw new \Exception('Invalid config, expecting array');
+            throw new \Exception('Invalid config, expecting array', 1);
         } else if(empty($config)) {
-            throw new \Exception('Cannot pass empty configuration array');
+            throw new \Exception('Cannot pass empty configuration array', 2);
         }
 
         $method_types = Utilities::getClasses(__DIR__.'/MethodTypes');
@@ -56,13 +56,9 @@ class Namecheap
     {
         $class_string = 'Namecheap/MethodTypes/'.$method_type;
         $namespaced_class = Utilities::getFullNamespace($class_string);
-        if(class_exists($namespaced_class)) {
-            $class = new $namespaced_class();
-            $object = $this->build($class, $config);
-            return $object;
-        } else {
-            throw new \Exception('No class found for `'.$method_type.'`');
-        }
+        $class = new $namespaced_class();
+        $object = $this->build($class, $config);
+        return $object;
     }
 
     /**
