@@ -24,15 +24,40 @@ class Utilities
      * e.g. CamelCase/Path -> camel_case_path
      *
      * @param string $string
+     * @throws \Exception when empty string passed is not a string
+     * @throws \Exception when empty string is passed
      *
      * @return string $string
      */
     public static function convertCamelCaseToUnderscore($string)
     {
         $new_parts = array();
+
+        if(!is_string($string)) {
+            throw new \Exception('Unexpected value for string in Utilities::convertCamelCaseToUnderscore expecting `string`');
+        }
+
+        if(strlen($string) < 1) {
+            throw new \Exception('Cannot convert empty string from camelCase to underscore');
+        }
+
+        if(substr($string, 0, 1) === '/') {
+            $string = preg_replace('/^(\/+)/', '', $string);
+        }
+
+        if(substr($string, strlen($string) - 1) === '/') {
+            $string = preg_replace('/(\/+)$/', '', $string);
+        }
+
         $parts = explode('/', $string);
         foreach($parts as $index => $part) {
-            $part = substr(strtolower(preg_replace('/([A-Z])/', '_$1', $part)), 1);
+            $replacement = strtolower(preg_replace('/([A-Z])/', '_$1', $part));
+            if(ctype_upper(substr($part, 0, 1)) === true) {
+                $part = substr($replacement, 1);
+            } else {
+                $part = $replacement;
+            }
+
             $new_parts[] = $part;
         }
 
