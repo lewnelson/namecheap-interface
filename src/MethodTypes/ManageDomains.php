@@ -9,10 +9,10 @@
  * file that was distributed with this source code.
  */
 
-namespace Namecheap\MethodTypes;
+namespace LewNelson\Namecheap\MethodTypes;
 
-use Namecheap\NamecheapMethodTypesBase;
-use Namecheap\NamecheapMethodTypesInterface;
+use LewNelson\Namecheap\NamecheapMethodTypesBase;
+use LewNelson\Namecheap\NamecheapMethodTypesInterface;
 
 /**
  * Interact with group domains methods
@@ -27,7 +27,7 @@ class ManageDomains extends NamecheapMethodTypesBase implements NamecheapMethodT
      *
      * @param array $request_parameters (optional)
      *
-     * @return \Namecheap\Response $response
+     * @return \LewNelson\Namecheap\Response $response
      */
     public function getDomains($request_parameters = array())
     {
@@ -77,7 +77,7 @@ class ManageDomains extends NamecheapMethodTypesBase implements NamecheapMethodT
      *
      * @param string $domain_name
      *
-     * @return \Namecheap\Response $response
+     * @return \LewNelson\Namecheap\Response $response
      */
     public function getDomain($domain_name)
     {
@@ -104,7 +104,7 @@ class ManageDomains extends NamecheapMethodTypesBase implements NamecheapMethodT
      *
      * @param string $domain
      *
-     * @return \Namecheap\Objects\Domains $domain_object
+     * @return \LewNelson\Namecheap\Objects\Domains $domain_object
      */
     private function buildObject($domain)
     {

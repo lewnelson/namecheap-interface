@@ -9,9 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Namecheap\Objects\Domains;
+namespace LewNelson\Namecheap\Objects\Domains;
 
-use Namecheap\Objects\BaseDomains;
+use LewNelson\Namecheap\Objects\BaseDomains;
 
 /**
  * Interact with individual domains
@@ -23,7 +23,7 @@ class EmailForwarding extends BaseDomains
     /**
      * Gets email forwarding for domain
      *
-     * @return \Namecheap\Response $response
+     * @return \LewNelson\Namecheap\Response $response
      */
     public function getEmailForwarding()
     {
@@ -56,7 +56,7 @@ class EmailForwarding extends BaseDomains
      *
      * @param array $email_addresses
      *
-     * @return \Namecheap\Response $response
+     * @return \LewNelson\Namecheap\Response $response
      */
     public function setEmailForwarding($email_addresses)
     {
@@ -89,7 +89,7 @@ class EmailForwarding extends BaseDomains
      * @param array $mailboxes
      * @param array $emails
      *
-     * @return \Namecheap\Response $response
+     * @return \LewNelson\Namecheap\Response $response
      */
     public function removeEmailForwarding($mailboxes = array(), $emails = array())
     {

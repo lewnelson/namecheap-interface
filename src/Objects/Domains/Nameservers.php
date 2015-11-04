@@ -9,9 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Namecheap\Objects\Domains;
+namespace LewNelson\Namecheap\Objects\Domains;
 
-use Namecheap\Objects\BaseDomains;
+use LewNelson\Namecheap\Objects\BaseDomains;
 
 /**
  * Interact with individual domains
@@ -23,7 +23,7 @@ class Nameservers extends BaseDomains
     /**
      * Sets domain to use default Namecheap DNS servers
      *
-     * @return \Namecheap\Response $response
+     * @return \LewNelson\Namecheap\Response $response
      */
     public function setDefault()
     {
@@ -46,7 +46,7 @@ class Nameservers extends BaseDomains
      * @param array $nameservers
      * @param array $overwrite
      *
-     * @return \Namecheap\Response $response
+     * @return \LewNelson\Namecheap\Response $response
      */
     public function setCustom($nameservers, $overwrite = true)
     {
@@ -82,7 +82,7 @@ class Nameservers extends BaseDomains
      *
      * @param array $nameservers
      *
-     * @return \Namecheap\Response $response
+     * @return \LewNelson\Namecheap\Response $response
      */
     public function delete($nameservers)
     {
@@ -106,7 +106,7 @@ class Nameservers extends BaseDomains
     /**
      * Gets list of DNS servers associated with domain
      *
-     * @return \Namecheap\Response $response
+     * @return \LewNelson\Namecheap\Response $response
      */
     public function get()
     {

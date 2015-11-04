@@ -9,10 +9,10 @@
  * file that was distributed with this source code.
  */
 
-namespace Namecheap\Connect;
+namespace LewNelson\Namecheap\Connect;
 
-use Namecheap\NamecheapException;
-use Namecheap\Response;
+use LewNelson\Namecheap\NamecheapException;
+use LewNelson\Namecheap\Response;
 
 /**
  * Connects with Namecheaps API

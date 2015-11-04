@@ -9,9 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Namecheap\Objects;
+namespace LewNelson\Namecheap\Objects;
 
-use Namecheap\Objects\BaseObject;
+use LewNelson\Namecheap\Objects\BaseObject;
 
 /**
  * Interact with individual domains

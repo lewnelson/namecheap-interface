@@ -21,8 +21,8 @@
         "phpunit/phpunit": "~5"
     },
     "autoload": {
-        "psr-0": {
-            "Namecheap": "src"
+        "psr-4": {
+            "LewNelson\\Namecheap\\": "src"
         }
     }
 }

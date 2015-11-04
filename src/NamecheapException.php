@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Namecheap;
+namespace LewNelson\Namecheap;
 
 /**
  * Exception for any errors returned by Namecheap API
@@ -33,7 +33,7 @@ class NamecheapException extends \Exception
      *
      * @param \Namecheap\Response $response
      */
-    public function __construct(\Namecheap\Response $response)
+    public function __construct(\LewNelson\Namecheap\Response $response)
     {
         $this->namecheap_response = $response;
         $response = $response->getResponse();

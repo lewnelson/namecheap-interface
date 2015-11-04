@@ -9,9 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Namecheap\Objects;
+namespace LewNelson\Namecheap\Objects;
 
-use Namecheap\Utils\Utilities;
+use LewNelson\Namecheap\Utils\Utilities;
 
 /**
  * Container of object types
@@ -47,14 +47,14 @@ class Container
      * underscored keys
      *
      * @param string $type
-     * @param \Namecheap\Connect\Connect $connection
+     * @param \LewNelson\Namecheap\Connect\Connect $connection
      * @param array $configuration
      */
     public function __construct($type, $connection, $configuration)
     {
         $classes = Utilities::getClasses(__DIR__.'/'.$type);
         foreach($classes as $class) {
-            $full_namespace = Utilities::getFullNamespace('Namecheap/Objects/'.$type.'/'.$class);
+            $full_namespace = Utilities::getFullNamespace('LewNelson/Namecheap/Objects/'.$type.'/'.$class);
             $object = new $full_namespace($configuration);
             $name = Utilities::convertCamelCaseToUnderscore($class);
             $this->set($object, $name);
@@ -66,9 +66,9 @@ class Container
     /**
      * Set connection property on each object
      *
-     * @param \Namecheap\Connect\Connect $connection
+     * @param \LewNelson\Namecheap\Connect\Connect $connection
      */
-    private function setConnections(\Namecheap\Connect\Connect $connection)
+    private function setConnections(\LewNelson\Namecheap\Connect\Connect $connection)
     {
         foreach($this->objects as $index => $object) {
             $object->setConnection($connection);
@@ -94,10 +94,10 @@ class Container
     /**
      * Sets object under key name
      *
-     * @param \Namecheap\NamecheapObjectInterface $object
+     * @param \LewNelson\Namecheap\NamecheapObjectInterface $object
      * @param string $name
      */
-    private function set(\Namecheap\NamecheapObjectInterface $object, $name)
+    private function set(\LewNelson\Namecheap\NamecheapObjectInterface $object, $name)
     {
         $this->objects[$name] = $object;
     }

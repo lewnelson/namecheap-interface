@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Namecheap\Utils;
+namespace LewNelson\Namecheap\Utils;
 
 /**
  * Useful functions used throughout Namecheap library
@@ -80,7 +80,7 @@ class Utilities
     public static function getClasses($directory, $base_directory = '', $classes = null)
     {
         if(!is_dir($directory)) {
-            throw new \Exception('Invalid directory `'.$directory.'` provided for \Namecheap\Utilities::getClasses');
+            throw new \Exception('Invalid directory `'.$directory.'` provided for \LewNelson\Namecheap\Utilities::getClasses');
         }
 
         if($classes === null) {

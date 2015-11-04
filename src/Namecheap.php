@@ -9,10 +9,10 @@
  * file that was distributed with this source code.
  */
 
-namespace Namecheap;
+namespace LewNelson\Namecheap;
 
-use Namecheap\Connect\Connect;
-use Namecheap\Utils\Utilities;
+use LewNelson\Namecheap\Connect\Connect;
+use LewNelson\Namecheap\Utils\Utilities;
 
 /**
  * Builds method type object to use
@@ -54,7 +54,7 @@ class Namecheap
      */
     private function create($method_type, $config)
     {
-        $class_string = 'Namecheap/MethodTypes/'.$method_type;
+        $class_string = 'LewNelson/Namecheap/MethodTypes/'.$method_type;
         $namespaced_class = Utilities::getFullNamespace($class_string);
         $class = new $namespaced_class();
         $object = $this->build($class, $config);
@@ -82,7 +82,7 @@ class Namecheap
      * @param NamecheapMethodTypesInterface $object
      * @param string $method_type
      */
-    private function setMethodType(\Namecheap\NamecheapMethodTypesInterface $object, $method_type)
+    private function setMethodType(\LewNelson\Namecheap\NamecheapMethodTypesInterface $object, $method_type)
     {
         $method_type = Utilities::convertCamelCaseToUnderscore($method_type);
         $this->$method_type = $object;

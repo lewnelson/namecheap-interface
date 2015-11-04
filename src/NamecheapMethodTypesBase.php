@@ -9,10 +9,10 @@
  * file that was distributed with this source code.
  */
 
-namespace Namecheap;
+namespace LewNelson\Namecheap;
 
-use Namecheap\Response;
-use Namecheap\Objects\Container;
+use LewNelson\Namecheap\Response;
+use LewNelson\Namecheap\Objects\Container;
 
 /**
  * Common methods used by classes implementing NamecheapMethodTypesInterface
@@ -54,7 +54,7 @@ class NamecheapMethodTypesBase
      *
      * @param \Namecheap\Connect\Connect $connection
      */
-    final public function setConnection(\Namecheap\Connect\Connect $connection)
+    final public function setConnection(\LewNelson\Namecheap\Connect\Connect $connection)
     {
         $this->connection = $connection;
     }

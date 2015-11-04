@@ -9,10 +9,10 @@
  * file that was distributed with this source code.
  */
 
-namespace Namecheap\Objects;
+namespace LewNelson\Namecheap\Objects;
 
-use Namecheap\NamecheapMethodTypesBase;
-use Namecheap\NamecheapObjectInterface;
+use LewNelson\Namecheap\NamecheapMethodTypesBase;
+use LewNelson\Namecheap\NamecheapObjectInterface;
 
 /**
  * Common methods used by Object classes

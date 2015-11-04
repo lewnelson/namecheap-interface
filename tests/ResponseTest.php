@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Namecheap;
+namespace LewNelson\Namecheap;
 
 /**
  * @author Lewis Nelson <lewis@lewnelson.com>
@@ -98,7 +98,7 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
     public function testValidObject()
     {
         $instance = $this->getObjectWithValidConfig();
-        $this->assertInstanceOf("\\Namecheap\\Response", $instance);
+        $this->assertInstanceOf("\\LewNelson\\Namecheap\\Response", $instance);
     }
 }
 

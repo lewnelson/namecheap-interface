@@ -9,18 +9,18 @@
  * file that was distributed with this source code.
  */
 
-namespace Namecheap\MethodTypes;
+namespace LewNelson\Namecheap\MethodTypes;
 
-use Namecheap\NamecheapMethodTypesBase;
-use Namecheap\NamecheapMethodTypesInterface;
-use Namecheap\Objects\Container;
+use LewNelson\Namecheap\NamecheapMethodTypesBase;
+use LewNelson\Namecheap\NamecheapMethodTypesInterface;
+use LewNelson\Namecheap\Objects\Container;
 
 /**
  * Interact with group domains methods
  *
  * @author Lewis Nelson <lewis@lewnelson.com>
  */
-class Account extends NamecheapMethodTypesBase implements NamecheapMethodTypesInterface
+class Ssl extends NamecheapMethodTypesBase implements NamecheapMethodTypesInterface
 {
     /**
      *  Get list of objects

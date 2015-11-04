@@ -9,9 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Namecheap\Objects\Domains;
+namespace LewNelson\Namecheap\Objects\Domains;
 
-use Namecheap\Objects\BaseDomains;
+use LewNelson\Namecheap\Objects\BaseDomains;
 
 /**
  * Interact with individual domains
@@ -23,7 +23,7 @@ class Hosts extends BaseDomains
     /**
      * Gets hosts for domain
      *
-     * @return \Namecheap\Response $response
+     * @return \LewNelson\Namecheap\Response $response
      */
     private function getHosts()
     {
@@ -67,7 +67,7 @@ class Hosts extends BaseDomains
      * @param array $overwritable_hosts
      * @param array $additonal_hosts
      *
-     * @return \Namecheap\Response $response
+     * @return \LewNelson\Namecheap\Response $response
      */
     private function setHosts($hosts, $current_subdomains, $overwritable_hosts, $additonal_hosts)
     {
@@ -103,7 +103,7 @@ class Hosts extends BaseDomains
      *
      * @param array $hosts
      *
-     * @return \Namecheap\Response $response
+     * @return \LewNelson\Namecheap\Response $response
      */
     private function setHostsOverwrite($hosts)
     {
@@ -131,7 +131,7 @@ class Hosts extends BaseDomains
      * @param array $hosts
      * @throws \Exception if invalid type is passed
      *
-     * @return \Namecheap\Response $response
+     * @return \LewNelson\Namecheap\Response $response
      */
     public function setMxRecords($hosts)
     {
@@ -165,7 +165,7 @@ class Hosts extends BaseDomains
      * @param array $hosts
      * @throws \Exception if invalid type is passed
      *
-     * @return \Namecheap\Response $response
+     * @return \LewNelson\Namecheap\Response $response
      */
     public function setHostRecords($hosts)
     {
@@ -196,7 +196,7 @@ class Hosts extends BaseDomains
      *
      * @param array $all_hosts (optional) used from other functions in class
      *
-     * @return \Namecheap\Response $response
+     * @return \LewNelson\Namecheap\Response $response
      */
     public function getMxRecords($all_hosts = false)
     {
@@ -221,7 +221,7 @@ class Hosts extends BaseDomains
      *
      * @param array $all_hosts (optional) used from other functions in class
      *
-     * @return \Namecheap\Response $response
+     * @return \LewNelson\Namecheap\Response $response
      */
     public function getHostRecords($all_hosts = false)
     {
@@ -247,7 +247,7 @@ class Hosts extends BaseDomains
      *
      * @param array $hosts
      *
-     * @return \Namecheap\Response $response
+     * @return \LewNelson\Namecheap\Response $response
      */
     public function deleteMxHosts($hosts)
     {
@@ -277,7 +277,7 @@ class Hosts extends BaseDomains
      *
      * @param array $hosts
      *
-     * @return \Namecheap\Response $response
+     * @return \LewNelson\Namecheap\Response $response
      */
     public function deleteHostRecords($hosts)
     {

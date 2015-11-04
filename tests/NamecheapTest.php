@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Namecheap;
+namespace LewNelson\Namecheap;
 
 /**
  * @author Lewis Nelson <lewis@lewnelson.com>
@@ -87,7 +87,7 @@ class NamecheapTest extends \PHPUnit_Framework_TestCase
             );
 
         $instance = new Namecheap($config);
-        $this->assertInstanceOf("\\Namecheap\\Namecheap", $instance);
+        $this->assertInstanceOf("\\LewNelson\\Namecheap\\Namecheap", $instance);
     }
 }
 

@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Namecheap;
+namespace LewNelson\Namecheap;
 
 /**
  * @author Lewis Nelson <lewis@lewnelson.com>
@@ -58,7 +58,7 @@ class NamecheapExceptionTest extends \PHPUnit_Framework_TestCase
         $status = $this->custom_invalid_parameters['status'];
         $request_information = $this->custom_invalid_parameters['request_information'];
         $response = $this->custom_invalid_parameters['response'];
-        $response_object = new \Namecheap\Response($status, $request_information, $response);
+        $response_object = new \LewNelson\Namecheap\Response($status, $request_information, $response);
 
         $exception = new NamecheapException($response_object);
     }
@@ -72,7 +72,7 @@ class NamecheapExceptionTest extends \PHPUnit_Framework_TestCase
         $status = $this->custom_invalid_error_code_parameters['status'];
         $request_information = $this->custom_invalid_error_code_parameters['request_information'];
         $response = $this->custom_invalid_error_code_parameters['response'];
-        $response_object = new \Namecheap\Response($status, $request_information, $response);
+        $response_object = new \LewNelson\Namecheap\Response($status, $request_information, $response);
 
         $exception = new NamecheapException($response_object);
     }
@@ -82,11 +82,11 @@ class NamecheapExceptionTest extends \PHPUnit_Framework_TestCase
         $status = $this->custom_valid_parameters['status'];
         $request_information = $this->custom_valid_parameters['request_information'];
         $response = $this->custom_valid_parameters['response'];
-        $response_object = new \Namecheap\Response($status, $request_information, $response);
+        $response_object = new \LewNelson\Namecheap\Response($status, $request_information, $response);
 
         $exception = new NamecheapException($response_object);
 
-        $this->assertInstanceOf('\\Namecheap\\NamecheapException', $exception);
+        $this->assertInstanceOf('\\LewNelson\\Namecheap\\NamecheapException', $exception);
     }
 
     public function testCheckResponseObjectOnNamecheapException()
@@ -94,7 +94,7 @@ class NamecheapExceptionTest extends \PHPUnit_Framework_TestCase
         $status = $this->custom_valid_parameters['status'];
         $request_information = $this->custom_valid_parameters['request_information'];
         $response = $this->custom_valid_parameters['response'];
-        $response_object = new \Namecheap\Response($status, $request_information, $response);
+        $response_object = new \LewNelson\Namecheap\Response($status, $request_information, $response);
 
         $exception = new NamecheapException($response_object);
         $same_response_object = $exception->getNamecheapResponse();

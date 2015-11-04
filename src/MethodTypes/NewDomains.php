@@ -9,11 +9,11 @@
  * file that was distributed with this source code.
  */
 
-namespace Namecheap\MethodTypes;
+namespace LewNelson\Namecheap\MethodTypes;
 
-use Namecheap\NamecheapMethodTypesBase;
-use Namecheap\NamecheapMethodTypesInterface;
-use Namecheap\Objects\Container;
+use LewNelson\Namecheap\NamecheapMethodTypesBase;
+use LewNelson\Namecheap\NamecheapMethodTypesInterface;
+use LewNelson\Namecheap\Objects\Container;
 
 /**
  * Interact with group domains methods
