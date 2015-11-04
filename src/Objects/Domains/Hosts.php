@@ -29,29 +29,32 @@ class Hosts extends BaseDomains
     {
         $command = 'namecheap.domains.dns.getHosts';
         $response = $this->processDefaultRequest($command);
-        $response_hosts = array();
 
-        $count = $response['DomainDNSGetHostsResult']->host->count();
-        for($i = 0; $i < $count; $i++) {
-            $host = $response['DomainDNSGetHostsResult']->host[$i];
-            $parameters = $host->attributes();
-            $host_params = array(
-                    'id' => (string)$parameters['HostId'],
-                    'type' => (string)$parameters['Type'],
-                    'address' => (string)$parameters['Address'],
-                    'mx_pref' => (string)$parameters['MXPref'],
-                    'ttl' => (string)$parameters['TTL'],
-                    'associated_app_title' => (string)$parameters['AssociatedAppTitle'],
-                    'friendly_name' => (string)$parameters['FriendlyName'],
-                    'active' => filter_var((string)$parameters['IsActive'], FILTER_VALIDATE_BOOLEAN),
-                    'ddns_enabled' => filter_var((string)$parameters['IsDDNSEnabled'], FILTER_VALIDATE_BOOLEAN),
-                    'host_name' => (string)$parameters['Name']
-                );
+        if($response->getStatus() === 'ok') {
+            $response_hosts = array();
 
-            $response_hosts[] = $host_params;
+            $count = $response['DomainDNSGetHostsResult']->host->count();
+            for($i = 0; $i < $count; $i++) {
+                $host = $response['DomainDNSGetHostsResult']->host[$i];
+                $parameters = $host->attributes();
+                $host_params = array(
+                        'id' => (string)$parameters['HostId'],
+                        'type' => (string)$parameters['Type'],
+                        'address' => (string)$parameters['Address'],
+                        'mx_pref' => (string)$parameters['MXPref'],
+                        'ttl' => (string)$parameters['TTL'],
+                        'associated_app_title' => (string)$parameters['AssociatedAppTitle'],
+                        'friendly_name' => (string)$parameters['FriendlyName'],
+                        'active' => filter_var((string)$parameters['IsActive'], FILTER_VALIDATE_BOOLEAN),
+                        'ddns_enabled' => filter_var((string)$parameters['IsDDNSEnabled'], FILTER_VALIDATE_BOOLEAN),
+                        'host_name' => (string)$parameters['Name']
+                    );
+
+                $response_hosts[] = $host_params;
+            }
+
+            $response = $response_hosts;
         }
-
-        $response = $response_hosts;
         
         return $this->createResponse($response);
     }
@@ -91,8 +94,10 @@ class Hosts extends BaseDomains
         $command = 'namecheap.domains.dns.setHosts';
         $response = $this->processDefaultRequest($command, $new_parameters);
 
-        $attributes = $response['DomainDNSSetHostsResult']->attributes();
-        $response = filter_var((string)$attributes['IsSuccess'], FILTER_VALIDATE_BOOLEAN);
+        if($response->getStatus() === 'ok') {
+            $attributes = $response['DomainDNSSetHostsResult']->attributes();
+            $response = filter_var((string)$attributes['IsSuccess'], FILTER_VALIDATE_BOOLEAN);
+        }
 
         return $this->createResponse($response);
     }
@@ -117,8 +122,10 @@ class Hosts extends BaseDomains
         $command = 'namecheap.domains.dns.setHosts';
         $response = $this->processDefaultRequest($command, $new_parameters);
 
-        $attributes = $response['DomainDNSSetHostsResult']->attributes();
-        $response = filter_var((string)$attributes['IsSuccess'], FILTER_VALIDATE_BOOLEAN);
+        if($response->getStatus() === 'ok') {
+            $attributes = $response['DomainDNSSetHostsResult']->attributes();
+            $response = filter_var((string)$attributes['IsSuccess'], FILTER_VALIDATE_BOOLEAN);
+        }
         
         return $this->createResponse($response);
     }

@@ -11,7 +11,6 @@
 
 namespace LewNelson\Namecheap\Connect;
 
-use LewNelson\Namecheap\NamecheapException;
 use LewNelson\Namecheap\Response;
 
 /**
@@ -203,9 +202,7 @@ class Connect
     public function setClientIp($client_ip)
     {
         if(is_string($client_ip)) {
-            // IPv6 not implemented yet
-            $ipv4_pattern = '/^(?:(?:[1-9]{1,2}|1[0-9]{2}|(?:2[0-4]{1}[0-9]{1}|25[0-4]{1}))\.){3}(?:[0-9]{1,2}|1[0-9]{2}|(?:2[0-4]{1}[0-9]{1}|25[0-4]{1}))$/';
-            if(preg_match($ipv4_pattern, $client_ip) === 0) {
+            if(filter_var($client_ip, FILTER_VALIDATE_IP) === false) {
                 throw new \Exception('Invalid IPv4 value specified for `client_ip`');
             } else {
                 $this->client_ip = $client_ip;
@@ -330,7 +327,6 @@ class Connect
      * @param string $url
      *
      * @throws \Exception on cURL errors
-     * @throws \Namecheap\NamecheapException Namecheap errors
      *
      * @return array $response
      */
@@ -361,10 +357,6 @@ class Connect
 
         $response = NamecheapResponse::create($response, $url, $exploded_parameters);
         $formatted_response = $response->format();
-
-        if($formatted_response['status'] !== 'ok') {
-            throw new NamecheapException(new Response($formatted_response['status'], $formatted_response['request_info'], $formatted_response['response']));
-        }
 
         return $formatted_response;
     }

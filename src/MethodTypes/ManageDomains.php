@@ -52,19 +52,25 @@ class ManageDomains extends NamecheapMethodTypesBase implements NamecheapMethodT
         $command = 'namecheap.domains.getList';
         $response = $this->processRequest($command, $new_request_parameters);
 
-        foreach($response['DomainGetListResult']->Domain as $index => $domain) {
-            $attributes = $domain->attributes();
-            $domain_object = $this->buildObject($attributes);
-            $domains[] = $domain_object;
+        if($response->getStatus() === 'ok') {
+            foreach($response['DomainGetListResult']->Domain as $index => $domain) {
+                $attributes = $domain->attributes();
+                $domain_object = $this->buildObject($attributes);
+                $domains[] = $domain_object;
+            }
+
+            $paging = (array)$response['Paging'];
+            $pagination['total_domains'] = (int)$paging['TotalItems'];
+            $pagination['current_page'] = (int)$paging['CurrentPage'];
+            $pagination['num_items_on_page'] = (int)$paging['PageSize'];
+            $pagination['total_pages'] = (int)ceil($pagination['total_domains'] / $pagination['num_items_on_page']);
+            $response = array(
+                    'pagination' => $pagination,
+                    'domains' => $domains
+                );
         }
 
-        $paging = (array)$response['Paging'];
-        $pagination['total_domains'] = (int)$paging['TotalItems'];
-        $pagination['current_page'] = (int)$paging['CurrentPage'];
-        $pagination['num_items_on_page'] = (int)$paging['PageSize'];
-        $pagination['total_pages'] = (int)ceil($pagination['total_domains'] / $pagination['num_items_on_page']);
-
-        return $this->createResponse(array('pagination' => $pagination, 'domains' => $domains));
+        return $this->createResponse($response);
     }
 
     /**
@@ -88,15 +94,17 @@ class ManageDomains extends NamecheapMethodTypesBase implements NamecheapMethodT
         $command = 'namecheap.domains.getList';
         $response = $this->processRequest($command, $request_parameters);
 
-        foreach($response['DomainGetListResult']->Domain as $index => $domain) {
-            $attributes = $domain->attributes();
-            if((string)$attributes['Name'] === $domain_name) {
-                $domain_object = $this->buildObject($attributes);
-                break;
+        if($response->getStatus() === 'ok') {
+            foreach($response['DomainGetListResult']->Domain as $index => $domain) {
+                $attributes = $domain->attributes();
+                if((string)$attributes['Name'] === $domain_name) {
+                    $response = $this->buildObject($attributes);
+                    break;
+                }
             }
         }
 
-        return $this->createResponse($domain_object);
+        return $this->createResponse($response);
     }
 
     /**

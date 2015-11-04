@@ -32,21 +32,26 @@ class EmailForwarding extends BaseDomains
             );
         $command = 'namecheap.domains.dns.getEmailForwarding';
         $response = $this->processRequest($command, $parameters);
-        $forwarding_response = array();
 
-        $forwarding = $response['DomainDNSGetEmailForwardingResult']->Forward;
-        $total = $forwarding->count();
-        for($i = 0; $i < $total; $i++) {
-            $attributes = $forwarding[$i]->attributes();
-            $mailbox = (string)$attributes['mailbox'];
-            $email = (string)$forwarding[$i];
-            $forwarding_response[] = array(
-                    'forwarding_email' => $email,
-                    'mailbox' => $mailbox
-                );
+        if($response->getStatus() === 'ok') {
+            $forwarding_response = array();
+
+            $forwarding = $response['DomainDNSGetEmailForwardingResult']->Forward;
+            $total = $forwarding->count();
+            for($i = 0; $i < $total; $i++) {
+                $attributes = $forwarding[$i]->attributes();
+                $mailbox = (string)$attributes['mailbox'];
+                $email = (string)$forwarding[$i];
+                $forwarding_response[] = array(
+                        'forwarding_email' => $email,
+                        'mailbox' => $mailbox
+                    );
+            }
+
+            $repsonse = $forwarding_response;
         }
 
-        return $this->createResponse($forwarding_response);
+        return $this->createResponse($response);
     }
 
     /**
@@ -76,8 +81,10 @@ class EmailForwarding extends BaseDomains
         $command = 'namecheap.domains.dns.setEmailForwarding';
         $response = $this->processRequest($command, $emails);
 
-        $attributes = $response['DomainDNSSetEmailForwardingResult']->attributes();
-        $response = filter_var((string)$attributes['IsSuccess'], FILTER_VALIDATE_BOOLEAN);
+        if($response->getStatus() === 'ok') {
+            $attributes = $response['DomainDNSSetEmailForwardingResult']->attributes();
+            $response = filter_var((string)$attributes['IsSuccess'], FILTER_VALIDATE_BOOLEAN);
+        }
         
         return $this->createResponse($response);
     }
