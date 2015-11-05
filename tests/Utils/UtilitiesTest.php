@@ -55,6 +55,47 @@ class UtilitiesTest extends \PHPUnit_Framework_TestCase
     {
         $output = Utilities::convertCamelCaseToUnderscore($input);
     }
+
+    public function getFullNamespaceInvalidTypesProvider()
+    {
+        return array(
+                array(true),
+                array(false),
+                array(null),
+                array(
+                        array('value_1', 'value_2')
+                    ),
+                array(''),
+                array('/Conains//Double/Slash')
+            );
+    }
+
+    /**
+     * @expectedException \Exception
+     * @dataProvider getFullNamespaceInvalidTypesProvider
+     */
+    public function testGetFullNamespaceWithInvalidType($data)
+    {
+        $output = Utilities::getFullNamespace($data);
+    }
+
+    public function getFullNamespaceValidValuesProvider()
+    {
+        $prefix = "\\LewNelson\\Namecheap";
+        return array(
+                array('/Main/Sub/Class', $prefix.'\\Main\\Sub\\Class'),
+                array('Main/Sub/Class', $prefix.'\\Main\\Sub\\Class')
+            );
+    }
+
+    /**
+     * @dataProvider getFullNamespaceValidValuesProvider
+     */
+    public function testGetFullNamespaceWithValidData($data, $expected_output)
+    {
+        $output = Utilities::getFullNamespace($data);
+        $this->assertEquals($output, $expected_output);
+    }
 }
 
 ?>

@@ -19,7 +19,7 @@ use LewNelson\Namecheap\Utils\Utilities;
  *
  * @author Lewis Nelson <lewis@lewnelson.com>
  */
-class Namecheap
+class Client
 {
     /**
      * Set up the object with properties to access all

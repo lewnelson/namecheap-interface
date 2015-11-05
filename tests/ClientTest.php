@@ -14,7 +14,7 @@ namespace LewNelson\Namecheap;
 /**
  * @author Lewis Nelson <lewis@lewnelson.com>
  */
-class NamecheapTest extends \PHPUnit_Framework_TestCase
+class ClientTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @expectedException \Exception
@@ -22,7 +22,7 @@ class NamecheapTest extends \PHPUnit_Framework_TestCase
     public function testBuildInvalidConfigType()
     {
         $config = 'Configuration';
-        $instance = new Namecheap($config);
+        $instance = new Client($config);
     }
 
     /**
@@ -31,7 +31,7 @@ class NamecheapTest extends \PHPUnit_Framework_TestCase
     public function testBuildEmptyConfig()
     {
         $config = array();
-        $instance = new Namecheap($config);
+        $instance = new Client($config);
     }
 
     /**
@@ -44,7 +44,7 @@ class NamecheapTest extends \PHPUnit_Framework_TestCase
                 'invalid',
                 'shouldn\'t work'
             );
-        $instance = new Namecheap($config);
+        $instance = new Client($config);
     }
 
     /**
@@ -59,7 +59,7 @@ class NamecheapTest extends \PHPUnit_Framework_TestCase
                 'client_ip' => '256.1.1.5'
             );
 
-        $instance = new Namecheap($config);
+        $instance = new Client($config);
     }
 
     /**
@@ -74,7 +74,7 @@ class NamecheapTest extends \PHPUnit_Framework_TestCase
                 'client_ip' => '112.112.112.112'
             );
 
-        $instance = new Namecheap($config);
+        $instance = new Client($config);
     }
 
     public function testBuildValidConfigArray()
@@ -86,8 +86,8 @@ class NamecheapTest extends \PHPUnit_Framework_TestCase
                 'client_ip' => '112.112.112.112'
             );
 
-        $instance = new Namecheap($config);
-        $this->assertInstanceOf("\\LewNelson\\Namecheap\\Namecheap", $instance);
+        $instance = new Client($config);
+        $this->assertInstanceOf("\\LewNelson\\Namecheap\\Client", $instance);
     }
 }
 

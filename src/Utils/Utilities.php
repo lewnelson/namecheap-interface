@@ -71,11 +71,26 @@ class Utilities
      * e.g. Path/To/Class.php -> \LewNelson\Namecheap\Path\To\Class
      *
      * @param string $string
+     * @throws \Exception if $string is not of type string
+     * @throws \Exception if $string is empty
+     * @throws \Exception if $string is invalid format
      *
      * @return string $string
      */
     public static function getFullNamespace($string)
     {
+        if(!is_string($string)) {
+            throw new \Exception('Invalid value given for Utilities::getFullNamespace, expecting string');
+        }
+
+        if(strlen($string) < 1) {
+            throw new \Exception('Value for $string cannot be empty');
+        }
+
+        if(strpos($string, '//') !== false) {
+            throw new \Exception('Invalid value provided for $string');
+        }
+
         $prefix = '\\LewNelson\\Namecheap';
         $string = preg_replace('/\.php$/', '', $string);
         $string = str_replace('/', '\\', $string);
@@ -107,14 +122,10 @@ class Utilities
      *
      * @return array $classes
      */
-    public static function getClasses($directory, $prefix = '', $classes = null)
+    public static function getClasses($directory, $prefix = '', $classes = array())
     {
         if(!is_dir($directory)) {
             throw new \Exception('Invalid directory `'.$directory.'` provided for \LewNelson\Namecheap\Utilities::getClasses');
-        }
-
-        if($classes === null) {
-            $classes = array();
         }
 
         $files = array_diff(scandir($directory), array('.', '..'));
