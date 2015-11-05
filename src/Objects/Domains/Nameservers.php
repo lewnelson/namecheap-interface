@@ -30,7 +30,7 @@ class Nameservers extends BaseDomains
         $command = 'namecheap.domains.dns.setDefault';
         $response = $this->processDefaultRequest($command);
 
-        if($response->getStatus() === 'ok') {
+        if($this->getStatus() === 'ok') {
             $response_status = false;
 
             $attributes = $response['DomainDNSSetDefaultResult']->attributes();
@@ -71,7 +71,7 @@ class Nameservers extends BaseDomains
 
         $response_status = false;
 
-        if($response->getStatus() === 'ok') {
+        if($this->getStatus() === 'ok') {
             $attributes = $response['DomainDNSSetCustomResult']->attributes();
             $response_status = (string)$attributes['Updated'];
             $response_status = filter_var($response_status, FILTER_VALIDATE_BOOLEAN);
@@ -118,7 +118,7 @@ class Nameservers extends BaseDomains
         $command = 'namecheap.domains.dns.getList';
         $response = $this->processDefaultRequest($command);
 
-        if($response->getStatus() === 'ok') {
+        if($this->getStatus() === 'ok') {
             $attributes = $response['DomainDNSGetListResult']->attributes();
             $using_namecheap = (string)$attributes['IsUsingOurDNS'];
             $using_namecheap = filter_var($using_namecheap, FILTER_VALIDATE_BOOLEAN);

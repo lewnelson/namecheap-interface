@@ -52,11 +52,14 @@ class Container
      */
     public function __construct($type, $connection, $configuration)
     {
-        $classes = Utilities::getClasses(__DIR__.'/'.$type);
+        $this->configuration = $configuration;
+        $prefix = 'LewNelson/Namecheap/Objects/'.$type;
+        $classes = Utilities::getClasses(__DIR__.'/'.$type, $prefix);
         foreach($classes as $class) {
-            $full_namespace = Utilities::getFullNamespace('LewNelson/Namecheap/Objects/'.$type.'/'.$class);
+            $full_namespace = Utilities::getFullNamespace($class);
             $object = new $full_namespace($configuration);
-            $name = Utilities::convertCamelCaseToUnderscore($class);
+            $name = str_replace($prefix, '', $class);
+            $name = Utilities::convertCamelCaseToUnderscore($name);
             $this->set($object, $name);
         }
 
@@ -100,6 +103,26 @@ class Container
     private function set(\LewNelson\Namecheap\NamecheapObjectInterface $object, $name)
     {
         $this->objects[$name] = $object;
+    }
+
+    /**
+     * Get from $configuration
+     *
+     * @param string $name (optional)
+     *
+     * @return array, string or null
+     */
+    public function getConfig($name = null)
+    {
+        if($name === null) {
+            return $this->configuration;
+        }
+
+        if(isset($this->configuration[$name])) {
+            return $this->configuration[$name];
+        } else {
+            return null;
+        }
     }
 }
 

@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Namecheap\Connect;
+namespace LewNelson\Namecheap\Connect;
 
 /**
  * Processes Namecheaps XML responses

@@ -30,7 +30,7 @@ class Hosts extends BaseDomains
         $command = 'namecheap.domains.dns.getHosts';
         $response = $this->processDefaultRequest($command);
 
-        if($response->getStatus() === 'ok') {
+        if($this->getStatus() === 'ok') {
             $response_hosts = array();
 
             $count = $response['DomainDNSGetHostsResult']->host->count();
@@ -94,7 +94,7 @@ class Hosts extends BaseDomains
         $command = 'namecheap.domains.dns.setHosts';
         $response = $this->processDefaultRequest($command, $new_parameters);
 
-        if($response->getStatus() === 'ok') {
+        if($this->getStatus() === 'ok') {
             $attributes = $response['DomainDNSSetHostsResult']->attributes();
             $response = filter_var((string)$attributes['IsSuccess'], FILTER_VALIDATE_BOOLEAN);
         }
@@ -122,7 +122,7 @@ class Hosts extends BaseDomains
         $command = 'namecheap.domains.dns.setHosts';
         $response = $this->processDefaultRequest($command, $new_parameters);
 
-        if($response->getStatus() === 'ok') {
+        if($this->getStatus() === 'ok') {
             $attributes = $response['DomainDNSSetHostsResult']->attributes();
             $response = filter_var((string)$attributes['IsSuccess'], FILTER_VALIDATE_BOOLEAN);
         }

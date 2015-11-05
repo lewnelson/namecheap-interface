@@ -33,7 +33,7 @@ class EmailForwarding extends BaseDomains
         $command = 'namecheap.domains.dns.getEmailForwarding';
         $response = $this->processRequest($command, $parameters);
 
-        if($response->getStatus() === 'ok') {
+        if($this->getStatus() === 'ok') {
             $forwarding_response = array();
 
             $forwarding = $response['DomainDNSGetEmailForwardingResult']->Forward;
@@ -81,7 +81,7 @@ class EmailForwarding extends BaseDomains
         $command = 'namecheap.domains.dns.setEmailForwarding';
         $response = $this->processRequest($command, $emails);
 
-        if($response->getStatus() === 'ok') {
+        if($this->getStatus() === 'ok') {
             $attributes = $response['DomainDNSSetEmailForwardingResult']->attributes();
             $response = filter_var((string)$attributes['IsSuccess'], FILTER_VALIDATE_BOOLEAN);
         }

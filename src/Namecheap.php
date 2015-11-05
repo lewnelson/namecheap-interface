@@ -36,9 +36,11 @@ class Namecheap
             throw new \Exception('Cannot pass empty configuration array', 2);
         }
 
-        $method_types = Utilities::getClasses(__DIR__.'/MethodTypes');
+        $prefix = 'LewNelson/Namecheap/MethodTypes';
+        $method_types = Utilities::getClasses(__DIR__.'/MethodTypes', $prefix);
         foreach($method_types as $method_type) {
             $object = $this->create($method_type, $config);
+            $method_type = str_replace($prefix, '', $method_type);
             $this->setMethodType($object, $method_type);
         }
     }
@@ -54,7 +56,7 @@ class Namecheap
      */
     private function create($method_type, $config)
     {
-        $class_string = 'LewNelson/Namecheap/MethodTypes/'.$method_type;
+        $class_string = $method_type;
         $namespaced_class = Utilities::getFullNamespace($class_string);
         $class = new $namespaced_class();
         $object = $this->build($class, $config);

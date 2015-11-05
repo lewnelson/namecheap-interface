@@ -68,7 +68,7 @@ class Utilities
     /**
      * Converts a given path to PHP file (with or
      * without .php extension) into the namespace
-     * e.g. Path/To/Class.php -> \Path\To\Class
+     * e.g. Path/To/Class.php -> \LewNelson\Namecheap\Path\To\Class
      *
      * @param string $string
      *
@@ -76,10 +76,15 @@ class Utilities
      */
     public static function getFullNamespace($string)
     {
+        $prefix = '\\LewNelson\\Namecheap';
         $string = preg_replace('/\.php$/', '', $string);
         $string = str_replace('/', '\\', $string);
         if(substr($string, 0, 1) !== '\\') {
             $string = '\\'.$string;
+        }
+
+        if(substr($string, 0, strlen($prefix)) !== $prefix) {
+            $string = $prefix.$string;
         }
 
         return $string;
@@ -95,14 +100,14 @@ class Utilities
      * Directory/SubDirectory/Class
      *
      * @param string $directory
-     * @param string $base_directory (optional) will set prefix to classes
+     * @param string $prefix (optional) will set prefix to classes
      * @param array $classes (optional) begin with array of classes
      *
      * @throws \Exception if $directory is not a directory
      *
      * @return array $classes
      */
-    public static function getClasses($directory, $base_directory = '', $classes = null)
+    public static function getClasses($directory, $prefix = '', $classes = null)
     {
         if(!is_dir($directory)) {
             throw new \Exception('Invalid directory `'.$directory.'` provided for \LewNelson\Namecheap\Utilities::getClasses');
@@ -115,16 +120,16 @@ class Utilities
         $files = array_diff(scandir($directory), array('.', '..'));
         foreach($files as $file) {
             if(is_dir($directory.'/'.$file)) {
-                if(strlen($base_directory) === 0) {
+                if(strlen($prefix) === 0) {
                     $new_base_directory = $file;
                 } else {
-                    $new_base_directory = '/'.$file;
+                    $new_prefix = '/'.$file;
                 }
-                $classes = self::getClasses($directory.'/'.$file, $new_base_directory, $classes);
+                $classes = self::getClasses($directory.'/'.$file, $new_prefix, $classes);
             } else {
                 $class = preg_replace('/\.php$/', '', $file);
-                if(strlen($base_directory) > 0) {
-                    $class = $base_directory.'/'.$class;
+                if(strlen($prefix) > 0) {
+                    $class = $prefix.'/'.$class;
                 }
 
                 $classes[] = $class;

@@ -52,7 +52,7 @@ class ManageDomains extends NamecheapMethodTypesBase implements NamecheapMethodT
         $command = 'namecheap.domains.getList';
         $response = $this->processRequest($command, $new_request_parameters);
 
-        if($response->getStatus() === 'ok') {
+        if($this->getStatus() === 'ok') {
             foreach($response['DomainGetListResult']->Domain as $index => $domain) {
                 $attributes = $domain->attributes();
                 $domain_object = $this->buildObject($attributes);
@@ -94,7 +94,7 @@ class ManageDomains extends NamecheapMethodTypesBase implements NamecheapMethodT
         $command = 'namecheap.domains.getList';
         $response = $this->processRequest($command, $request_parameters);
 
-        if($response->getStatus() === 'ok') {
+        if($this->getStatus() === 'ok') {
             foreach($response['DomainGetListResult']->Domain as $index => $domain) {
                 $attributes = $domain->attributes();
                 if((string)$attributes['Name'] === $domain_name) {
