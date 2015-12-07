@@ -1,0 +1,8 @@
+{
+    "environment": "REQUIRED - development/production",
+    "api_key": "REQUIRED - namecheap API key",
+    "api_username": "REQUIRED - namecheap username",
+    "client_ip": "REQUIRED - IP where requests are coming from",
+    "username": "OPTIONAL - separate username for requests",
+    "ssl_certificate_path": "OPTIONAL - path to ssl cert file for cURL https://"
+}
