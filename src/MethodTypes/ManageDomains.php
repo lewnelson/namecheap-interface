@@ -32,19 +32,19 @@ class ManageDomains extends NamecheapMethodTypesBase implements NamecheapMethodT
     public function getDomains($request_parameters = array())
     {
         $valid_parameters = array(
-                'list_type' => 'ListType',
-                'search_term' => 'SearchTerm',
-                'page' => 'Page',
-                'num_domains' => 'PageSize',
-                'sort_by' => 'SortBy'
+                'ListType',
+                'SearchTerm',
+                'Page',
+                'PageSize',
+                'SortBy'
             );
 
         $new_request_parameters = array();
         foreach($request_parameters as $key => $value) {
-            if(!isset($valid_parameters[$key])) {
+            if(!in_array($key, $valid_parameters)) {
                 throw new \Exception('Invalid parameter `'.$key.'` used for getDomains()');
             } else {
-                $new_request_parameters[$valid_parameters[$key]] = $value;
+                $new_request_parameters[$key] = $value;
             }
         }
 
@@ -98,11 +98,15 @@ class ManageDomains extends NamecheapMethodTypesBase implements NamecheapMethodT
             foreach($response['DomainGetListResult']->Domain as $index => $domain) {
                 $attributes = $domain->attributes();
                 if((string)$attributes['Name'] === $domain_name) {
-                    $response = $this->buildObject($attributes);
+                    $domain_object = $this->buildObject($attributes);
                     break;
                 }
             }
         }
+
+        $response = array(
+                'domain' => $domain_object
+            );
 
         return $this->createResponse($response);
     }

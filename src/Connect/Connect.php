@@ -110,8 +110,8 @@ class Connect
                 'ssl_certificate_path' => preg_replace('/\/[^\/]+$/', '/Certificates', __DIR__).'/ca-bundle.crt'
             );
 
-        foreach($config as $option => $value) {
-            if(!in_array($option, $required_options)) {
+        foreach($required_options as $option) {
+            if(!isset($config[$option])) {
                 throw new \Exception('Missing configuration option `'.$option.'`');
             }
         }
