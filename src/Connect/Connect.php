@@ -9,7 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Namecheap\Connect;
+namespace LewNelson\Namecheap\Connect;
+
+use LewNelson\Namecheap\Response;
 
 /**
  * Connects with Namecheaps API
@@ -108,8 +110,8 @@ class Connect
                 'ssl_certificate_path' => preg_replace('/\/[^\/]+$/', '/Certificates', __DIR__).'/ca-bundle.crt'
             );
 
-        foreach($config as $option => $value) {
-            if(!in_array($option, $required_options)) {
+        foreach($required_options as $option) {
+            if(!isset($config[$option])) {
                 throw new \Exception('Missing configuration option `'.$option.'`');
             }
         }
@@ -200,9 +202,7 @@ class Connect
     public function setClientIp($client_ip)
     {
         if(is_string($client_ip)) {
-            // IPv6 not implemented yet
-            $ipv4_pattern = '/^(?:(?:[1-9]{1,2}|1[0-9]{2}|(?:2[0-4]{1}[0-9]{1}|25[0-4]{1}))\.){3}(?:[0-9]{1,2}|1[0-9]{2}|(?:2[0-4]{1}[0-9]{1}|25[0-4]{1}))$/';
-            if(preg_match($ipv4_pattern, $client_ip) === -1) {
+            if(filter_var($client_ip, FILTER_VALIDATE_IP) === false) {
                 throw new \Exception('Invalid IPv4 value specified for `client_ip`');
             } else {
                 $this->client_ip = $client_ip;
@@ -355,8 +355,10 @@ class Connect
             throw new \Exception('cURL error - ('.$curl_errno.'): `'.$curl_error.'`');
         }
 
-        $response = NamecheapResponse::format($response, $url);
-        return $response;
+        $response = NamecheapResponse::create($response, $url, $exploded_parameters);
+        $formatted_response = $response->format();
+
+        return $formatted_response;
     }
 
     /**

@@ -1,5 +1,5 @@
 /public
-/public/*
 /vendor
 *.sublime-project
 *.sublime-workspace
+/composer.lock
