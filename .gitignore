@@ -1,2 +1,5 @@
 /public
 /public/*
+/vendor
+*.sublime-project
+*.sublime-workspace
